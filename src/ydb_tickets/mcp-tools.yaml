@@ -1,0 +1,22 @@
+- name: create-ticket
+  description: >-
+    Создать одну заявку по явной просьбе пользователя. Возвращает настоящий
+    ticket_id и created_at после подтверждения записи. user_id всегда равен
+    mihey3000@yandex.ru; другие пользователи на учебном стенде запрещены.
+  input_json_schema: >-
+    {"type":"object","properties":{"user_id":{"type":"string","enum":["mihey3000@yandex.ru"]},"category":{"type":"string","enum":["bug","docs","feature","access"]},"text":{"type":"string","minLength":1,"maxLength":65536}},"required":["user_id","category","text"],"additionalProperties":false}
+  action:
+    function_call:
+      function_id: d4ejkktk530dvqknqrem
+      tag: $latest
+- name: list-my-tickets
+  description: >-
+    Получить заявки текущего учебного пользователя от новых к старым.
+    user_id всегда равен mihey3000@yandex.ru. Возвращает массив с полями
+    id, status, category, text, created_at; пустой массив означает отсутствие заявок.
+  input_json_schema: >-
+    {"type":"object","properties":{"user_id":{"type":"string","enum":["mihey3000@yandex.ru"]}},"required":["user_id"],"additionalProperties":false}
+  action:
+    function_call:
+      function_id: d4ejkktk530dvqknqrem
+      tag: $latest
